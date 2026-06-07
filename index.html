@@ -21,24 +21,24 @@
             padding: 1rem;
         }
 
-        /* د ګوګل اصلي کارت ډیزاین - سپین پس منظر */
+        /* د ګوګل اصلي کارت ډیزاین */
         .google-card {
             max-width: 450px;
             width: 100%;
             background: #ffffff;
             border-radius: 0.75rem;
             border: 1px solid #dadce0;
-            padding: 2rem 1.8rem;
+            padding: 2rem 2rem 1.5rem 2rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
         .logo {
             text-align: center;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
 
         .logo span {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 500;
             color: #4285f4;
             font-family: 'Google Sans', system-ui;
@@ -69,7 +69,7 @@
             padding: 0.85rem 1rem;
             background: #ffffff;
             border: 1px solid #dadce0;
-            border-radius: 0.5rem;
+            border-radius: 0.25rem;
             color: #202124;
             font-size: 1rem;
             outline: none;
@@ -85,12 +85,29 @@
             color: #80868b;
         }
 
+        /* د "my acct" متن */
+        .my-acct {
+            font-size: 0.75rem;
+            color: #5f6368;
+            margin-top: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .my-acct a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .my-acct a:hover {
+            text-decoration: underline;
+        }
+
         button {
             width: 100%;
             padding: 0.85rem;
             background: #1a73e8;
             border: none;
-            border-radius: 0.5rem;
+            border-radius: 0.25rem;
             color: white;
             font-size: 0.95rem;
             font-weight: 600;
@@ -103,12 +120,12 @@
             background: #1557b0;
         }
 
-        /* د لینکونو ډیزاون */
+        /* د لینکونو لومړی قطار */
         .links-row {
             display: flex;
             justify-content: space-between;
-            margin-top: 1.2rem;
-            font-size: 0.75rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
         }
 
         .links-row a, .links-row span {
@@ -121,10 +138,43 @@
             text-decoration: underline;
         }
 
-        .create-account {
-            display: block;
-            text-align: center;
+        /* Guest mode متن */
+        .guest-text {
+            text-align: left;
             margin-top: 1.2rem;
+            font-size: 0.75rem;
+            color: #5f6368;
+            line-height: 1.4;
+        }
+
+        .guest-text a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .guest-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Learn more لینک */
+        .learn-more {
+            display: inline-block;
+            margin-top: 0.3rem;
+            font-size: 0.75rem;
+        }
+
+        .learn-more a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .learn-more a:hover {
+            text-decoration: underline;
+        }
+
+        .create-account {
+            display: inline-block;
+            margin-top: 1rem;
             font-size: 0.85rem;
             color: #1a73e8;
             text-decoration: none;
@@ -134,28 +184,11 @@
             text-decoration: underline;
         }
 
-        .guest-mode {
-            display: block;
-            text-align: center;
-            margin-top: 0.8rem;
-            font-size: 0.75rem;
-            color: #5f6368;
-        }
-
-        .guest-mode a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-
-        .guest-mode a:hover {
-            text-decoration: underline;
-        }
-
         /* د پیغامونو بکسونه */
         .message {
             margin-top: 1rem;
             padding: 0.7rem;
-            border-radius: 0.5rem;
+            border-radius: 0.25rem;
             font-size: 0.8rem;
             text-align: center;
             display: none;
@@ -197,24 +230,27 @@
             text-align: center;
             font-size: 0.7rem;
             color: #5f6368;
-            margin-top: 0.8rem;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
 
 <div class="google-card">
-    <div class="logo">
-        <span>G</span>
-    </div>
-
     <!-- مرحله 1: برېښنالیک -->
     <div id="step1View">
+        <div class="logo">
+            <span>G</span>
+        </div>
         <h1>Sign in</h1>
         <div class="sub">Use your Google Account</div>
 
         <div class="input-group">
             <input type="email" id="emailInput" placeholder="Email or phone">
+        </div>
+
+        <div class="my-acct">
+            <a href="#" onclick="alert('my acct (Demo)'); return false;">my acct</a>
         </div>
 
         <button id="nextBtn">Next</button>
@@ -224,16 +260,22 @@
             <span onclick="alert('Guest mode (Demo)')">Guest mode</span>
         </div>
 
-        <a href="#" class="create-account" onclick="alert('Create account (Demo)'); return false;">Create account</a>
-
-        <div class="guest-mode">
-            <a href="#" onclick="alert('Learn more about Guest mode'); return false;">Learn more</a> about Guest mode
+        <div class="guest-text">
+            Not your computer? Use Guest mode to sign in privately.
+            <div class="learn-more">
+                <a href="#" onclick="alert('Learn more about Guest mode'); return false;">Learn more</a>
+            </div>
         </div>
+
+        <a href="#" class="create-account" onclick="alert('Create account (Demo)'); return false;">Create account</a>
     </div>
 
     <!-- مرحله 2: پټنوم -->
     <div id="step2View" style="display: none;">
-        <h1>Welcome back</h1>
+        <div class="logo">
+            <span>G</span>
+        </div>
+        <h1>Sign in</h1>
         <div class="sub" id="displayEmail"></div>
 
         <div class="input-group">
@@ -247,8 +289,11 @@
             <span onclick="alert('Forgot password? (Demo)')">Forgot password?</span>
         </div>
 
-        <div class="guest-mode">
-            <a href="#" onclick="alert('Learn more'); return false;">Learn more</a> about secure login
+        <div class="guest-text">
+            Not your computer? Use Guest mode to sign in privately.
+            <div class="learn-more">
+                <a href="#" onclick="alert('Learn more'); return false;">Learn more</a>
+            </div>
         </div>
     </div>
 
@@ -349,7 +394,6 @@
         step2View.style.display = 'block';
         stepIndicator.textContent = "Step 2 of 2";
         passwordInput.value = '';
-        showMessage(successBox, "✅ Email verified. Now enter your password.", false);
     });
 
     window.goBackToEmail = goBackToEmail;
